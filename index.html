@@ -9,6 +9,8 @@
     <title>Underworld underground</title>
 
     <link rel="stylesheet" type="text/css" href="vendors/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 </head>
 
 <body style="background-image: url(img/united-squares.png); color: #ffffff;">
@@ -29,7 +31,8 @@
             <!-- XSS vulnerability
 
                     Hack hint: typing <script>alert(1)</script> in the input field won't work, but
-                    typing something like <img src=" " onerror="alert(1)"> will! -->
+                    typing something like <img src=" " onerror="alert(1)"> will! 
+                    <img src="" onerror=alert("Done")>-->
 
             <input class="text-center" placeholder="Answer here." id="token-question" style="margin-bottom: 1%;">
 
@@ -47,7 +50,8 @@
         input.addEventListener("input", updateValue);
 
         function updateValue(e) {
-            log.innerHTML = e.target.value;
+            const sanitizedValue = DOMPurify.sanitize(e.target.value);
+            log.innerHTML = sanitizedValue;
         }
 
     </script>
